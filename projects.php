@@ -222,38 +222,39 @@
                       <th>Link</th>
                   </tr>
 			 <?php
-				$db_user = "";
-				$db_host = "";
-				$db_pass = "";
-				$db_name = "";
-
-				$dbc = @mysqli_connect($db_host, $db_user, $db_pass, $db_name);
-				
-				if($dbc){
-					?>
-					<script>
-                            			alert("Connected succesfully");
-                        		</script>
-					<?php
-
-						$query = "SELECT projectTitle, date, desc, techUsed, link FROM projects";
-						$response = @mysqli_query($dbc, $query);
-						if($response){
-							while($row = mysqli_fetch_array($response)){
-								echo "<tr><td>" . $row['projectTitle'] . "</td><td>" . $row['date'] . "</td><td>" . $row['desc'] . "</td><td>". $row['techUsed'] . "</td><td>" . $row['link'] ."</td></tr>";
-							}
-						}
-							
-				}
-				else{
-					?>
-					<script>
-                            			alert("Issue connecting...");
-                        		</script>
-					<?php
-				}
-				
-			 ?>
+                    
+                    $db_host = "";
+                    $db_user ="";
+                    $db_pass = "";
+                    $db_name ="";
+                    
+                    $dbc = @mysqli_connect($db_host, $db_user, $db_pass, $db_name) OR die("Could not connect to database".mysqli_connect_error());
+                    
+                    if(!$dbc){
+                        ?>
+                        <script>
+                            alert("Could not connect!");
+                        </script>
+                        <?php
+                    }
+                    else{
+                        ?>
+                        <script>
+                            alert("Connected succesfully");
+                        </script>
+                        <?php
+                        $query = "SELECT projectTitle, dateComplete, summary, techUsed, link FROM Students";
+                        $response = @mysqli_query($dbc,$query);
+                        
+                        while($row = @mysqli_fetch_array($response)){
+                           
+                           echo "<tr><td>". $row["projectTitle"]. "</td><td>". $row["dateComplete"] . "</td><td>". $row["summary"]. "</td><td>" .$row["techUsed"]. "</td><td>". $row["link"]."</td></tr>";
+                            
+                        }
+                    }
+                    
+                  
+                  ?>
                   
 		</table>
                         
