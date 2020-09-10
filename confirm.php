@@ -1,17 +1,20 @@
 <?php
-
-	$subject = $_POST['subject'];
-	$msg = $_POST['msg'];
-	
-	$email = mail("someEmail@address.ca", $subject, $msg);
-
-	if($email){
-		echo "<h3>Email sent succesfully! You can now close this window!</h3>";
-	}
-	else{
-		echo "<h3>Something went wrong... Close this window and try again!</h3>";
-	}
-
-	
-
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    
+        $subject = $_POST['email'];
+        $msg = $_POST['pass'];
+        
+        $msg = wordwrap($msg,70);
+        
+        $confirm = mail("","Contact Me",$msg);
+        
+        if($confirm){
+            
+            echo "<h3> Email succesfully sent! You can close this tab now. </h3>";
+            
+        }
+        else{
+            echo "<h3> Email could not be sent... You can close this tab now. </h3>";
+        }
+    }
 ?>
